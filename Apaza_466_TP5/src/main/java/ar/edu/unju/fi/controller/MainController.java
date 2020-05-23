@@ -17,5 +17,9 @@ public class MainController {
 		model.addAttribute("usuario",usuarioService.mostrar().getNombre());
 		return "index";
 	}
-
+	
+	@RequestMapping("/estadios")
+	public String estadios(Model model) {
+		return "estadios";
+	}	
 }

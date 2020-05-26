@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import ar.edu.unju.fi.Apaza466Tp5Application;
 import ar.edu.unju.fi.model.Usuario;
 
-@Repository("usuarioImp")
-public class UsuarioImp implements IUsuario {
+@Repository("usuarioDAOImp")
+public class UsuarioDAOImp implements IUsuarioDAO {
 	
 	@Autowired
 	private Usuario usuario;

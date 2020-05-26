@@ -9,7 +9,7 @@ import ar.edu.unju.fi.Apaza466Tp5Application;
 import ar.edu.unju.fi.model.Cuota;
 
 @Repository
-public class CuotaImp implements ICuota {
+public class CuotaDAOImp implements ICuotaDAO {
 	
 	@Autowired
 	private Cuota cuota;

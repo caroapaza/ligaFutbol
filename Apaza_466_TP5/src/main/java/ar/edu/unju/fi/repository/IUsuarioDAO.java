@@ -2,7 +2,7 @@ package ar.edu.unju.fi.repository;
 
 import ar.edu.unju.fi.model.Usuario;
 
-public interface IUsuario {
+public interface IUsuarioDAO {
 	
 	public void guardar();
 	public Usuario mostrar();

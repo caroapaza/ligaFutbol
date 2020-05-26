@@ -1,16 +1,18 @@
 package ar.edu.unju.fi.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.unju.fi.model.Usuario;
-import ar.edu.unju.fi.repository.IUsuario;
+import ar.edu.unju.fi.repository.IUsuarioDAO;
 
 @Repository
 public class IUsuarioServiceImp implements IUsuarioService{
 	
 	@Autowired
-	private IUsuario iusuario;
+	@Qualifier("usuarioDAOImpMySQL")
+	private IUsuarioDAO iusuario;
 
 	@Override
 	public void guardar() {

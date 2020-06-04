@@ -18,14 +18,16 @@ public class MainController {
 		model.addAttribute("usuario",usuarioService.mostrar().getNombre());
 		return "index";
 	}
-	
+
 	@RequestMapping("/estadios")
-	public String estadios(Model model) {
+	public String getEstadioForm(Model model) {
 		return "estadios";
-	}	
+	}
+
 	
 	@GetMapping("/formulario")
 	public String getUsuarioForm() {
 		return "usuarioForm";
 	}	
+	
 }

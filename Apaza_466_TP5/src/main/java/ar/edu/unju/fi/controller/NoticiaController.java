@@ -17,7 +17,7 @@ public class NoticiaController {
 	@RequestMapping("/noticias")
 	public String getNoticiasform(Model model) {
 		model.addAttribute("noticias",noticiaServiceImp.listar());
-		return "home";
+		return "noticias";
 	}	
 		
 	

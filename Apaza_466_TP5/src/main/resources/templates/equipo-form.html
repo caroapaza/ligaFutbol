@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Equipo</title>
+		<link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.5.0/css/bootstrap.min.css">
+		
+		<!--  estos no tengo en el proyecto -->
+		<link th:rel="stylesheet" th:href="@{/css/tempusdominus-bootstrap-4.min.css}"/>
+		<link th:rel="stylesheet" th:href="@{/webjars/font-awesome/5.11.2/css/all.css} "/>
+		<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}" type="text/javascript" src="webjars/jquery/3.5.1/jquery.min.js"></script>		
+		<script th:src="@{/webjars/popper.js/1.16.0/popper.min.js}" type="text/javascript" src="webjars/popper.js/1.16.0/popper.min.js"></script>
+		<script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}" type="text/javascript" src="webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+		<!--  estos no tengo en el proyecto -->
+		<script th:src="@{/js/moment.min.js}"></script>
+		<script th:src="@{/js/tempusdominus-bootstrap-4.min.js}"></script>
+	</head>
+	
+	<body>
+		<div class="container mt-4">
+		<div class="col-sm-6">
+			<form th:action="@{/save}" th:object=${equipo} method="POST">
+				<div class="card">
+					<div class="card-header">
+						<h3>EQUIPO</h3>
+					</div>
+					<div class="card-body">
+						<div class="form-group">
+							<label>Nombre</label>
+							<input th:field ="*{nombre}" type="text" class="form-control"/>
+						</div>
+						<div class="form-group">
+							<label>Nombre de estadio</label>
+							<input th:field ="*{estadio.nombre}" type="text" class="form-control"/>
+						</div>
+						<div class="form-group">
+							<label>Fech. de Fund.:</label>
+							 <div class="form-group">
+				                <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
+				                    <input type="date" class="form-control datetimepicker-input" data-target="#datetimepicker4"
+				                    th:field= "*{estadio.fechaFundacion}"/>
+				                    <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
+				                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+				                    </div>
+				                </div>
+				            </div> 
+				            <!-- <input th:field ="*{estadio.fechaFundacion}" type="date" class="form-control"/> -->	
+						</div>
+						<div class="form-group">
+							<label>Ciudad</label>
+							<input th:field ="*{estadio.ciudad}" type="text" class="form-control"/>
+						</div>
+						<div class="form-group">
+							<label>Capacidad</label>
+							<input th:field ="*{estadio.capacidad}" type="number" class="form-control"/>
+						</div>
+						<div class="form-group">
+							<label>Dirección</label>
+							<input th:field ="*{estadio.direccion}" type="text" class="form-control"/>
+						</div>
+					</div>
+					<div class="card-footer">
+						<input type="submit" value="Guardar" class="btn btn-success">
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		</div>
+		
+		
+		<script type="text/javascript">
+            	$(function () {
+					$('#datetimepicker4').datetimepicker({
+						format: 'L'							                    
+					});
+					
+				});
+		</script>
+		
+	</body>
+</html>

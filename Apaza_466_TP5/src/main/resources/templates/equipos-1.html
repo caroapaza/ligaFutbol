@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Equipos</title>
+	<link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+
+<body class="container">
+
+	<div th:insert="layout/header :: header"></div>
+	
+	<a th:href="@{/nuevoEquipo}" class="btn btn-primary">Nuevo</a>
+	<br><br>
+	
+	
+	<h1>LISTADO DE EQUIPOS</h1>
+	<div class="table-responsive">
+		<table class="table table-striped">
+		  <thead>
+		    <tr>
+		      <th scope="col">ID</th>
+		      <th scope="col">Nombre</th>
+		      <th scope="col">Estadio</th>
+		      <th scope="col">Acciones</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr th:each = "equipo:${equipos}">
+		      <td th:text = "${equipo.id}"></td>
+		      <td th:text = "${equipo.nombre}"></td>
+		      <td th:text = "${equipo.estadio.nombre}"></td>
+		      <td>
+		      	<a class="btn btn-warning">Editar</a>
+		      	<a class="btn btn-danger">Eliminar</a>
+		      </td>
+		    </tr>
+		    
+		  </tbody>
+		</table>
+	</div>
+	
+	<div th:insert="layout/footer :: footer"></div>
+	
+	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}" type="text/javascript" src="webjars/jquery/3.5.1/jquery.min.js"></script>		
+	<script th:src="@{/webjars/popper.js/1.16.0/popper.min.js}" type="text/javascript" src="webjars/popper.js/1.16.0/popper.min.js"></script>
+	<script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}" type="text/javascript" src="webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>

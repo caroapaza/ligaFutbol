@@ -11,35 +11,37 @@ import ar.edu.unju.fi.model.Usuario;
 @Repository("usuarioDAOImp")
 public class UsuarioDAOImp implements IUsuarioDAO {
 	
-	@Autowired
-	private Usuario usuario;
+	//@Autowired
+	//private Usuario usuario;
 	
 	public static Logger LOG = LoggerFactory.getLogger(Apaza466Tp5Application.class);
 
 	@Override
 	public void guardar() {
 		//acción ejecutada para guardar un objeto usuario en la BD
-		LOG.info("El usuario fue guardado " + usuario.getApellido() +", "+usuario.getNombre());
+		//LOG.info("El usuario fue guardado " + usuario.getApellido() +", "+usuario.getNombre());
 	}
 
 	@Override
 	public Usuario mostrar() {
 		// se recuperan todos los datos del usuario
-		LOG.info("Mostrar los datos del usuario");
-		return usuario;
+		//LOG.info("Mostrar los datos del usuario");
+		return null;//usuario;
+		
 	}
 
 	@Override
 	public void eliminar() {
 		// se elimina el objeto usuario de la bd
-		LOG.info("Se eliminó el usuario de la bd");
+		//LOG.info("Se eliminó el usuario de la bd");
 	}
 
 	@Override
 	public Usuario modificar() {
 		// se modifican los datos del usuario
-		LOG.info("Se modificaron los datos del usuario ");
-		return usuario;
+		//LOG.info("Se modificaron los datos del usuario ");
+		return null;//usuario;
+		
 	}
 
 }

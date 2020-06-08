@@ -5,7 +5,17 @@ package ar.edu.unju.fi.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
+
+
+
 
 
 
@@ -16,18 +26,29 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name = "noticias")
 public class Noticia {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name ="ID")
+	private Long id;
+	
 	/**
 	 * Fecha de la noticia
 	 */
 	private LocalDate fecha;
+	
 	/**
 	 * Titulo de la noticia
 	 */
 	private String titulo;
+	
 	/**
 	 * Resumen de la noticia
 	 */
+	@Column(name = "RESUMEN", length = 1000)
 	private String resumen;
 	
 	//----------CONSTRUCTORES--------
@@ -40,9 +61,9 @@ public class Noticia {
 	}
 	
 	/**
-	 * @param fecha Valor que se asignará a la fecha de la noticia
-	 * @param titulo Valor que se asignará al título de la noticia
-	 * @param resumen Valor que se asignará al resumen de la noticia
+	 * @param fecha Valor que se asignarï¿½ a la fecha de la noticia
+	 * @param titulo Valor que se asignarï¿½ al tï¿½tulo de la noticia
+	 * @param resumen Valor que se asignarï¿½ al resumen de la noticia
 	 */
 	public Noticia(LocalDate fecha, String titulo, String resumen) {
 		this.fecha = fecha;
@@ -97,6 +118,20 @@ public class Noticia {
 	 */
 	public void setResumen(String resumen) {
 		this.resumen = resumen;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

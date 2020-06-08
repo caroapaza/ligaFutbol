@@ -2,14 +2,46 @@ package ar.edu.unju.fi.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
+
 @Component
+@Entity
+@Table(name = "estadios")
 public class Estadio {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	private Long id;
+	
+	@Column(name = "NOMBRE")
 	private String nombre;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Column(name = "FECHA_FUNDACION")
 	private LocalDate fechaFundacion;
+	
+	@Column(name = "CIUDAD")
 	private String ciudad;
+	
+	@Column(name = "CAPACIDAD")
 	private int capacidad;
+	
+	@Column(name = "DIRECCION")
 	private String direccion;
+	
+	@OneToOne(mappedBy = "estadio", fetch = FetchType.LAZY )
+	private Equipo equipo;
 	
 	public Estadio() {
 		// TODO Auto-generated constructor stub
@@ -102,6 +134,33 @@ public class Estadio {
 	}
 	
 	
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the equipo
+	 */
+	public Equipo getEquipo() {
+		return equipo;
+	}
+
+	/**
+	 * @param equipo the equipo to set
+	 */
+	public void setEquipo(Equipo equipo) {
+		this.equipo = equipo;
+	}
 	
 
 }

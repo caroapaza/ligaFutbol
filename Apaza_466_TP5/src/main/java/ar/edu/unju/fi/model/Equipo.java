@@ -1,19 +1,42 @@
 package ar.edu.unju.fi.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@Entity
+@Table(name ="equipos")
 public class Equipo {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	private Long id;
+	
+	@Column(name = "NOMBRE", length = 150, nullable = true)
 	private String nombre;
+	
+	@Autowired
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name = "ESTADIO_ID")
 	private Estadio estadio;
+	
+	
 	
 	//-------CONSTRUCTORES-------
 	/**
 	 * @param estadio
 	 */
-	@Autowired
 	public Equipo(Estadio estadio) {
 		this.estadio = estadio;
 	}
@@ -61,6 +84,24 @@ public class Equipo {
 	 */
 	public void setEstadio(Estadio estadio) {
 		this.estadio = estadio;
+	}
+
+
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

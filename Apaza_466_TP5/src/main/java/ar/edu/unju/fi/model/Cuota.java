@@ -2,17 +2,46 @@ package ar.edu.unju.fi.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@Entity
+@Table(name="cuotas")
 public class Cuota {
-	private long id;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="ID", nullable=false)
+	private Long id;
+	
+	@Column(name="FECHA_PAGO", nullable = false)
 	private LocalDate fechaPago;
+	
+	@Column(name="PERIODO", nullable=false)
 	private String periodo;
+	
+	@Column(name="MONTO", nullable=false)
 	private double monto;
+	
+	@Column(name="ESTADO", nullable=false)
 	private String estado;
+	
+	
 	@Autowired
+	@ManyToOne(fetch =FetchType.LAZY)
+	@JoinColumn(name = "SOCIO_ID")
 	private Usuario socio;
 	
 	public Cuota() {
@@ -21,9 +50,8 @@ public class Cuota {
 
 	
 
-	public Cuota(long id, LocalDate fechaPago, String periodo, double monto, String estado, Usuario socio) {
+	public Cuota( LocalDate fechaPago, String periodo, double monto, String estado, Usuario socio) {
 		super();
-		this.id = id;
 		this.fechaPago = fechaPago;
 		this.periodo = periodo;
 		this.monto = monto;
@@ -33,11 +61,11 @@ public class Cuota {
 
 
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

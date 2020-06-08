@@ -1,29 +1,58 @@
 package ar.edu.unju.fi.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
 @Component
+@Entity
+@Table(name= "usuarios")
 public class Usuario {
-	private long id;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name ="ID")
+	private Long id;
+	
 	private String nombre;
+	
 	private String apellido;
+	
+	@Column(name = "FECHA_NACIMIENTO")
 	private LocalDate fechaNacimiento;
+	
 	private String direccion;
+	
 	private long dni;
+	
+	@Column(name = "FECHA_ALTA")
 	private LocalDate fechaAlta;
+	
 	private String tipo; //SOCIO, ADMIN. CONSULTOR
+	
 	private String pasword;
+	
+	@OneToMany(mappedBy ="socio", cascade = CascadeType.ALL)
+	private List<Cuota> cuotas = new ArrayList<Cuota>();
 	
 	public Usuario() {
 		
 	}
 
-	public Usuario(long id, String nombre, String apellido, LocalDate fechaNacimiento, String direccion, long dni,
+	public Usuario(String nombre, String apellido, LocalDate fechaNacimiento, String direccion, long dni,
 			LocalDate fechaAlta, String tipo, String pasword) {
 		super();
-		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.fechaNacimiento = fechaNacimiento;
@@ -34,11 +63,11 @@ public class Usuario {
 		this.pasword = pasword;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -104,6 +133,23 @@ public class Usuario {
 
 	public void setPasword(String pasword) {
 		this.pasword = pasword;
+	}
+	
+	
+
+	
+	/**
+	 * @return the cuotas
+	 */
+	public List<Cuota> getCuotas() {
+		return cuotas;
+	}
+
+	/**
+	 * @param cuotas the cuotas to set
+	 */
+	public void setCuotas(List<Cuota> cuotas) {
+		this.cuotas = cuotas;
 	}
 
 	@Override

@@ -15,7 +15,7 @@ public class MainController {
 	
 	@RequestMapping("/home")
 	public String main(Model model) {
-		model.addAttribute("usuario",usuarioService.mostrar().getNombre());
+		
 		return "index";
 	}
 
@@ -23,11 +23,5 @@ public class MainController {
 	public String getEstadioForm(Model model) {
 		return "estadios";
 	}
-
-	
-	@GetMapping("/formulario")
-	public String getUsuarioForm() {
-		return "usuarioForm";
-	}	
 	
 }

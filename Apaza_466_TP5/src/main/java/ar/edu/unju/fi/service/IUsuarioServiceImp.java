@@ -1,40 +1,57 @@
 package ar.edu.unju.fi.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Repository;
-
+import org.springframework.stereotype.Service;
 import ar.edu.unju.fi.model.Usuario;
-import ar.edu.unju.fi.repository.IUsuarioDAO;
+import ar.edu.unju.fi.repository.IUsuarioRepository;
 
-@Repository
+@Service
 public class IUsuarioServiceImp implements IUsuarioService{
 	
 	@Autowired
-	@Qualifier("usuarioDAOImpMySQL")
-	private IUsuarioDAO iusuario;
+	IUsuarioRepository iUsuario;
 
 	@Override
-	public void guardar() {
-		iusuario.guardar();
+	public void crear(Usuario unUsuario) {
+		// TODO Auto-generated method stub		
+		iUsuario.save(unUsuario);
 	}
 
-	@Override
-	public Usuario mostrar() {
-		Usuario usuario = iusuario.mostrar();
-		return usuario;
-	}
-
-	@Override
-	public void eliminar() {
-		iusuario.eliminar();
-		
-	}
-
+	
+	//Interfaz de Usuario			Controller			Service			Repository			Modelo				Datos
+	//HTML																			Clases (Usuario)	BD MySQL
+	
+	
 	@Override
 	public Usuario modificar() {
-		Usuario usuario = iusuario.modificar();
-		return usuario;
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
+	
+	@Override
+	public Optional<Usuario> encontrarUsuario(Long id) {
+		// TODO Auto-generated method stub
+		Optional<Usuario> usuarioEncontrado = iUsuario.findById(id);
+		return usuarioEncontrado;
+	}
+
+
+	@Override
+	public Iterable<Usuario> listarTodos() {
+		// TODO Auto-generated method stub
+		return iUsuario.findAll();
+	}
+
+
+	@Override
+	public void eliminar(Long id) {
+		// TODO Auto-generated method stub
+		iUsuario.deleteById(id);	
 	}
 
 }

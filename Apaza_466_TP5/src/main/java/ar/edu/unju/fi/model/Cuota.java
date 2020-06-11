@@ -44,7 +44,6 @@ public class Cuota implements Serializable{
 	@Column(name="ESTADO", nullable=false)
 	private String estado;
 	
-	
 	@Autowired
 	@ManyToOne(fetch =FetchType.LAZY)
 	@JoinColumn(name = "SOCIO_ID")

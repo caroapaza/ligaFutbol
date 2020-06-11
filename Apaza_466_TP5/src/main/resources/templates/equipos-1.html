@@ -10,7 +10,8 @@
 <body class="container">
 
 	<div th:insert="layout/header :: header"></div>
-	
+	<br>
+			
 	<a th:href="@{/nuevoEquipo}" class="btn btn-primary">Nuevo</a>
 	<br><br>
 	
@@ -23,6 +24,9 @@
 		      <th scope="col">ID</th>
 		      <th scope="col">Nombre</th>
 		      <th scope="col">Estadio</th>
+		      <th scope="col">Ciudad</th>
+		      <th scope="col">Capacidad</th>
+		      <th scope="col">Fec.Fund.</th>
 		      <th scope="col">Acciones</th>
 		    </tr>
 		  </thead>
@@ -31,9 +35,12 @@
 		      <td th:text = "${equipo.id}"></td>
 		      <td th:text = "${equipo.nombre}"></td>
 		      <td th:text = "${equipo.estadio.nombre}"></td>
+		      <td th:text = "${equipo.estadio.ciudad}"></td>
+		      <td th:text = "${equipo.estadio.capacidad}"></td>
+		      <td th:text = "${#temporals.format(equipo.estadio.fechaFundacion, 'dd/MM/yyyy')}"></td>
 		      <td>
-		      	<a class="btn btn-warning">Editar</a>
-		      	<a class="btn btn-danger">Eliminar</a>
+		      	<a th:href="@{/editar/}+${equipo.id}" class="btn btn-warning">Editar</a>
+		      	<a th:href="@{/eliminar/}+${equipo.id}" class="btn btn-danger">Eliminar</a>
 		      </td>
 		    </tr>
 		    

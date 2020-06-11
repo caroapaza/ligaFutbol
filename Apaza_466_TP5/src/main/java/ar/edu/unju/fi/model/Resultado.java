@@ -1,5 +1,6 @@
 package ar.edu.unju.fi.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 
@@ -17,7 +18,12 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table(name = "resultados")
-public class Resultado {
+public class Resultado implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")

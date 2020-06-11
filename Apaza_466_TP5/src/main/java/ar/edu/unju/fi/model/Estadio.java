@@ -1,5 +1,6 @@
 package ar.edu.unju.fi.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -17,8 +18,13 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table(name = "estadios")
-public class Estadio {
+public class Estadio implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
@@ -40,7 +46,7 @@ public class Estadio {
 	@Column(name = "DIRECCION")
 	private String direccion;
 	
-	@OneToOne(mappedBy = "estadio", fetch = FetchType.LAZY )
+	@OneToOne(mappedBy = "estadio", fetch = FetchType.LAZY)
 	private Equipo equipo;
 	
 	public Estadio() {

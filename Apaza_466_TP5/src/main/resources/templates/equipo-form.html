@@ -3,17 +3,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Equipo</title>
-		<link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.5.0/css/bootstrap.min.css">
-		
-		<!--  estos no tengo en el proyecto -->
-		<link th:rel="stylesheet" th:href="@{/css/tempusdominus-bootstrap-4.min.css}"/>
-		<link th:rel="stylesheet" th:href="@{/webjars/font-awesome/5.11.2/css/all.css} "/>
-		<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}" type="text/javascript" src="webjars/jquery/3.5.1/jquery.min.js"></script>		
-		<script th:src="@{/webjars/popper.js/1.16.0/popper.min.js}" type="text/javascript" src="webjars/popper.js/1.16.0/popper.min.js"></script>
-		<script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}" type="text/javascript" src="webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-		<!--  estos no tengo en el proyecto -->
-		<script th:src="@{/js/moment.min.js}"></script>
-		<script th:src="@{/js/tempusdominus-bootstrap-4.min.js}"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	 
 	</head>
 	
 	<body>
@@ -25,6 +16,8 @@
 						<h3>EQUIPO</h3>
 					</div>
 					<div class="card-body">
+						<input type="hidden" th:field="*{id}"/>
+						<input type="hidden" th:field="*{estadio.id}"/>
 						<div class="form-group">
 							<label>Nombre</label>
 							<input th:field ="*{nombre}" type="text" class="form-control"/>
@@ -68,7 +61,6 @@
 		
 		</div>
 		
-		
 		<script type="text/javascript">
             	$(function () {
 					$('#datetimepicker4').datetimepicker({
@@ -78,5 +70,10 @@
 				});
 		</script>
 		
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    
+			
 	</body>
 </html>

@@ -1,5 +1,6 @@
 package ar.edu.unju.fi.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -19,8 +20,13 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table(name="cuotas")
-public class Cuota {
+public class Cuota implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="ID", nullable=false)

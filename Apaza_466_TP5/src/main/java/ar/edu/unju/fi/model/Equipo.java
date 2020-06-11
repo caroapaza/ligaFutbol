@@ -1,5 +1,7 @@
 package ar.edu.unju.fi.model;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,8 +18,13 @@ import org.springframework.stereotype.Component;
 @Component
 @Entity
 @Table(name ="equipos")
-public class Equipo {
+public class Equipo implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
@@ -102,6 +109,13 @@ public class Equipo {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Equipo [id=" + id + ", nombre=" + nombre + ", estadio=" + estadio + "]";
 	}
 	
 	

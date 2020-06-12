@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import ar.edu.unju.fi.model.Usuario;
 import ar.edu.unju.fi.service.IUsuarioServiceImp;
 
@@ -42,7 +43,7 @@ public class UsuarioController {
 		} else {
 			try {
 				usuarioService.crear(usuario);
-				model.addAttribute("usuarioDelForm", new Usuario());
+				model.addAttribute("usuarioDelForm", unUsuario);
 				model.addAttribute("listTab", "active");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -57,7 +58,7 @@ public class UsuarioController {
 		return "usuarioForm";
 	}
 
-	@GetMapping("/formulario/cancelar")
+	@GetMapping("/cancelar")
 	public String cancelarEditarUsuario(ModelMap model) {
 		return "redirect:/formulario";
 	}
@@ -71,5 +72,43 @@ public class UsuarioController {
 			model.addAttribute("listErrorMessage",e.getMessage());
 		}			
 		return cargarFormulario(model);
+	}
+	
+	
+	@GetMapping("/editarUsuario/{id}")
+	public String obtenerFormularioEditarUsuario(Model model, @PathVariable(name="id") Long id) throws Exception {
+		Usuario usuarioEncontrado = usuarioService.encontrarUsuario(id);
+		model.addAttribute("usuarioDelForm", usuarioEncontrado);
+		model.addAttribute("listaUsuarios", usuarioService.listarTodos());		
+		model.addAttribute("formTab", "active");
+		model.addAttribute("editMode", "true");
+		return "usuarioForm";
+	}
+	
+	@PostMapping("/editarUsuario")
+	public String postEditarUsuario(@Valid @ModelAttribute("usuarioDelForm") Usuario usuario, BindingResult result, ModelMap model) {
+		if(result.hasErrors()) {
+			//si da error el objeto recibido se vuelve a enviar a la vista
+			model.addAttribute("usuarioDelForm", usuario);			
+			model.addAttribute("formTab", "active");
+			model.addAttribute("editMode", "true");
+		} else {
+			try {
+				usuarioService.modificar(usuario);
+				model.addAttribute("usuarioDelForm", unUsuario);			
+				model.addAttribute("listTab", "active");
+				model.addAttribute("editMode", "false");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				// pasar las excepciones al html
+				model.addAttribute("formUsuarioErrorMessage",e.getMessage());
+				model.addAttribute("userForm", usuario);			
+				model.addAttribute("formTab", "active");
+				model.addAttribute("listaUsuarios", usuarioService.listarTodos());				
+				model.addAttribute("editMode", "true");
+			}
+		}
+		model.addAttribute("listaUsuarios", usuarioService.listarTodos());		
+		return "usuarioForm";
 	}
 }

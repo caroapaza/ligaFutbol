@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head> 
-<link th:rel="stylesheet" type="text/css" th:href="@{webjars/bootstrap/4.5.0/css/bootstrap.min.css}">
+<link th:rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}">
 
 <!--  estos no tengo en el proyecto -->
 <link th:rel="stylesheet" th:href="@{/css/tempusdominus-bootstrap-4.min.css}"/>
@@ -15,9 +15,9 @@
 <script th:src="@{/js/moment.min.js}"></script>		
 <script th:src="@{/js/tempusdominus-bootstrap-4.min.js}"></script>
 
-
 <meta charset="utf-8">
 <title>Formulario Usuarios</title>
+	
 </head>
 <body>
 	<div class="container">
@@ -39,7 +39,13 @@
 						<h4>Usuarios</h4>
 					</div>
 					<div class="card-body">
-						<form class="form" role="form" autocomplete="off" th:object="${usuarioDelForm}" th:action="@{/formulario}" method="post">
+						<form class="form" role="form" autocomplete="off" th:object="${usuarioDelForm}" th:action="${editMode}?@{/editarUsuario}:@{/formulario}" method="post">
+						
+						<!-- es necesario para pasar la validacion -->							
+						<input class="form-control" type=hidden th:field="${usuarioDelForm.id}" th:if="${editMode}">
+						<input class="form-control" type=hidden th:field="${usuarioDelForm.password}" th:if="${editMode}">
+						<input class="form-control" type=hidden th:field="${usuarioDelForm.tipo}" th:if="${editMode}">
+	
 							<div class="row">
 								<div class="col">
 									<div class="form-group row">
@@ -60,11 +66,11 @@
 									<div class="form-group row">
 										<label class="col-lg-3 col-form-label form-control-label">DNI:</label>
 										<div class="col-lg-9">
-											<input class="form-control" type="text">
+											<input class="form-control" type="text" th:field="${usuarioDelForm.dni}">
 										</div>
 									</div>
 
-									<div class="form-group row">
+									<div class="form-group row" th:if="${editMode==null or editMode==false}">
 										<label class="col-lg-3 col-form-label form-control-label">Contraseña:</label>
 										<div class="col-lg-9">
 											<input class="form-control" type="password"	th:field="${usuarioDelForm.password}">
@@ -84,7 +90,7 @@
 									<div class="form-group row">
 										<label for="fecha" class="col-lg-3 col-form-label form-control-label">Fecha Nac:</label>
 										<div class="col-lg-9 input-group date" id="datetimepicker1"	data-target-input="nearest">
-											<input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" id="fecha"
+											<input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" id="fecha01"
 												placeholder="Fecha" th:field="${usuarioDelForm.fechaNac}" />
 											<div class="input-group-append"	data-target="#datetimepicker1" data-toggle="datetimepicker">
 												<div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
@@ -96,7 +102,7 @@
 										<label for="fecha"
 											class="col-lg-3 col-form-label form-control-label">Fecha Alta:</label>
 										<div class="col-lg-9 input-group date" id="datetimepicker2"	data-target-input="nearest">
-											<input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" id="fecha"
+											<input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" id="fecha02"
 												placeholder="ingresar Fecha de Alta" th:field="${usuarioDelForm.fechaAlta}" />											
 											<div class="input-group-append"	data-target="#datetimepicker2" data-toggle="datetimepicker">
 												<div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
@@ -117,7 +123,7 @@
 										});
 									</script>
 
-									<div class="form-group row">
+									<div class="form-group row" th:if="${editMode==null or editMode==false}">
 										<label class="col-lg-3 col-form-label form-control-label">Tipo:</label>
 										<div class="col-lg-9">
 											<div class="form-check">
@@ -131,7 +137,7 @@
 													<label	class="form-check-label" for="gridRadios2">ADMIN</label>
 											</div>
 											<div class="form-check">
-												<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="CONSULTOR"
+												<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="CONSULTOR"
 													th:field="${usuarioDelForm.tipo}"> 
 													<label	class="form-check-label" for="gridRadios3">CONSULTOR</label>
 											</div>
@@ -139,17 +145,17 @@
 										</div>
 									</div>
 								</div>
-								.
+								
 							</div>
 							<div class="form-group row">
 								<div class="col-lg-12 text-center">
-									<a class="btn btn-secondary" th:href="@{'formulario/cancelar'}">Cancelar</a>
+									<a class="btn btn-secondary" th:href="@{'/cancelar'}">Cancelar</a>
 									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgregar">Guardar Usuario</button>
 								</div>
 							</div>
 							<div class="alert-danger text-center" th:if="${formUsuarioErrorMessage}" th:text="${formUsuarioErrorMessage}">Name Error</div>
 							
-							<!-- Modal -->
+							<!-- Modal Agregar -->
 							<div class="modal fade" id="modalAgregar" tabindex="-1"	role="dialog" aria-labelledby="agregarModalTitulo"	aria-hidden="true">
 								<div class="modal-dialog modal-dialog-centered" role="document">
 									<div class="modal-content">
@@ -162,7 +168,7 @@
 										<div class="modal-body"><h6>Are you sure you want to save this user?</h6></div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"	data-dismiss="modal">Close</button>
-											<input type="submit" class="btn btn-primary" value="Save Changes">
+											<input type="submit" class="btn btn-primary" value="Save Changes"  th:value="${editMode}?'Guardar Usuario':'Crear Usuario'">
 										</div>
 									</div>
 								</div>
@@ -201,12 +207,14 @@
 									<td th:text="${usuario.fechaAlta}"></td>
 									<td th:text="${usuario.direccion}"></td>
 									<td th:text="${usuario.tipo}"></td>
-									<td><i class="fa fa-edit"></i>
+									<td><a href="#" th:href="@{'/editarUsuario/'+${usuario.id}}">
+									<i class="fa fa-edit"></i></a> | 
 									<a href="#" th:onclick="'javascript:confirmarEliminar(\''+${usuario.id}+'\');'"><i class="fa fa-trash-alt"></i>
 									</a></td>
 								</tr>
 							</tbody>
 						</table>
+						<div class="alert-danger text-center" th:if="${listUsuarioErrorMessage}" th:text="${listUsuarioErrorMessage}">Name Error</div>
 						
 						<!-- Script -->
 <script type="text/javascript">
@@ -222,7 +230,7 @@ function eliminarUsuario(){
 </script>
 						
 						
-						<!-- Modal -->
+						<!-- Modal Eliminar -->
 							<div class="modal fade" id="modalEliminar" tabindex="-1"	role="dialog" aria-labelledby="eliminarModalTitulo"	aria-hidden="true">
 								<div class="modal-dialog modal-dialog-centered" role="document">
 									<div class="modal-content">
@@ -248,10 +256,64 @@ function eliminarUsuario(){
 			</div>
 		</div>
 
-
 	<div th:insert="layout/footer :: footer"></div>
 
 	</div>
+
+<!-- Modal Modificar 
+							<div class="modal fade" id="modalModificar" tabindex="-1"	role="dialog" aria-labelledby="agregarModalTitulo"	aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="agregarModalTitulo">Modificar Usuario</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										
+										<div class="col">
+										<div class="form-group row">
+											<label class="col-lg-3 col-form-label form-control-label">Apellido:</label>
+											<div class="col-lg-9">
+												<input class="form-control" type="text"	th:field="${usuarioDelForm.apellido}">
+												<div class="alert-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}">Name Error</div>
+											</div>
+										</div>
+	
+										<div class="form-group row">
+											<label class="col-lg-3 col-form-label form-control-label">Dirección:</label>
+											<div class="col-lg-9">
+												<input class="form-control" type="text"	th:field="${usuarioDelForm.direccion}">
+											</div>
+										</div>
+	
+										<div class="form-group row">
+										<label for="fecha02"
+											class="col-lg-3 col-form-label form-control-label">Fecha Alta:</label>
+										<div class="col-lg-9 input-group date" id="datetimepicker2"	data-target-input="nearest">
+											<input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" id="fecha02"
+												placeholder="ingresar Fecha de Alta" th:field="${usuarioDelForm.fechaAlta}" />											
+											<div class="input-group-append"	data-target="#datetimepicker2" data-toggle="datetimepicker">
+												<div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
+											</div>
+											<div class="alert-danger" th:if="${#fields.hasErrors('fechaAlta')}"	th:errors="*{fechaAlta}">Name Error</div>
+										</div>
+										
+									</div>								
+
+									</div>							
+										
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"	data-dismiss="modal">Close</button>
+											<input type="submit" class="btn btn-primary" value="Save Changes">
+											
+											<a href="#" th:href="@{'/editarUsuario/'+${usuario.id}}">
+											
+										</div>
+									</div>
+								</div>
+							</div>
+-->
 
 
 

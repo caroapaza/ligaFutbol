@@ -1,7 +1,5 @@
 package ar.edu.unju.fi.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ar.edu.unju.fi.model.Usuario;
@@ -18,35 +16,12 @@ public class IUsuarioServiceImp implements IUsuarioService{
 		// TODO Auto-generated method stub		
 		iUsuario.save(unUsuario);
 	}
-
-	
-	//Interfaz de Usuario			Controller			Service			Repository			Modelo				Datos
-	//HTML																			Clases (Usuario)	BD MySQL
-	
-	
-	@Override
-	public Usuario modificar() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-
-	
-	@Override
-	public Optional<Usuario> encontrarUsuario(Long id) {
-		// TODO Auto-generated method stub
-		Optional<Usuario> usuarioEncontrado = iUsuario.findById(id);
-		return usuarioEncontrado;
-	}
-
-
+		
 	@Override
 	public Iterable<Usuario> listarTodos() {
 		// TODO Auto-generated method stub
 		return iUsuario.findAll();
 	}
-
 
 	@Override
 	public void eliminar(Long id) {
@@ -54,4 +29,26 @@ public class IUsuarioServiceImp implements IUsuarioService{
 		iUsuario.deleteById(id);	
 	}
 
+	@Override
+	public Usuario modificar(Usuario unUsuario) throws Exception {
+		// TODO Auto-generated method stub
+		Usuario usuarioGuardar = encontrarUsuario(unUsuario.getId());
+		mapearUsuario(unUsuario, usuarioGuardar);		
+		return iUsuario.save(usuarioGuardar);
+	}
+	
+	public void mapearUsuario(Usuario desde, Usuario hacia) {
+		hacia.setNombre(desde.getNombre());
+		hacia.setApellido(desde.getApellido());
+		hacia.setDireccion(desde.getDireccion());
+		hacia.setFechaAlta(desde.getFechaAlta());
+		hacia.setDni(desde.getDni());
+		hacia.setFechaNac(desde.getFechaNac());
+	}
+
+	@Override
+	public Usuario encontrarUsuario(Long id) throws Exception {
+		// TODO Auto-generated method stub
+		return iUsuario.findById(id).orElseThrow(()-> new Exception("El Usuario no Existe"));
+	}
 }

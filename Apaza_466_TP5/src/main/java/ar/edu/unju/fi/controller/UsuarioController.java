@@ -76,12 +76,19 @@ public class UsuarioController {
 	
 	
 	@GetMapping("/editarUsuario/{id}")
-	public String obtenerFormularioEditarUsuario(Model model, @PathVariable(name="id") Long id) throws Exception {
-		Usuario usuarioEncontrado = usuarioService.encontrarUsuario(id);
-		model.addAttribute("usuarioDelForm", usuarioEncontrado);
+	public String obtenerFormularioEditarUsuario(Model model, @PathVariable(name="id") Long id) throws Exception {		
+		try {
+			Usuario usuarioEncontrado = usuarioService.encontrarUsuario(id);
+			model.addAttribute("usuarioDelForm", usuarioEncontrado);
+			model.addAttribute("editMode", "true");
+		}
+		catch (Exception e) {
+			model.addAttribute("formUsuarioErrorMessage",e.getMessage());
+			model.addAttribute("usuarioDelForm", unUsuario);
+			model.addAttribute("editMode", "false");
+		}				
 		model.addAttribute("listaUsuarios", usuarioService.listarTodos());		
-		model.addAttribute("formTab", "active");
-		model.addAttribute("editMode", "true");
+		model.addAttribute("formTab", "active");		
 		return "usuarioForm";
 	}
 	
@@ -102,7 +109,7 @@ public class UsuarioController {
 				// TODO Auto-generated catch block
 				// pasar las excepciones al html
 				model.addAttribute("formUsuarioErrorMessage",e.getMessage());
-				model.addAttribute("userForm", usuario);			
+				model.addAttribute("usuarioDelForm", usuario);			
 				model.addAttribute("formTab", "active");
 				model.addAttribute("listaUsuarios", usuarioService.listarTodos());				
 				model.addAttribute("editMode", "true");

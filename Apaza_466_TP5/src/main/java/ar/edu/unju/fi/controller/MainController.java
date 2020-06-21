@@ -24,4 +24,9 @@ public class MainController {
 		return "estadios";
 	}
 	
+	@GetMapping({"/","/login"})
+	public String ingresar(Model model) {
+		return "login";
+	}
+	
 }

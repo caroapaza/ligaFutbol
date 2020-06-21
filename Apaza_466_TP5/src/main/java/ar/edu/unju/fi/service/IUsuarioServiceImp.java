@@ -1,6 +1,7 @@
 package ar.edu.unju.fi.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ar.edu.unju.fi.model.Usuario;
 import ar.edu.unju.fi.repository.IUsuarioRepository;
@@ -13,7 +14,10 @@ public class IUsuarioServiceImp implements IUsuarioService{
 
 	@Override
 	public void crear(Usuario unUsuario) {
-		// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub	
+		String pw = unUsuario.getPassword();
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
+		unUsuario.setPassword(bCryptPasswordEncoder.encode(pw));
 		iUsuario.save(unUsuario);
 	}
 		

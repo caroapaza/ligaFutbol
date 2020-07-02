@@ -1,6 +1,7 @@
 package ar.edu.unju.fi.service;
 
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,15 +58,24 @@ public class EquipoServiceImp implements IEquipoService {
 		return equipos;
 	}
 
+	@Override
+	public List<Equipo> obtenerEquiposFechas(LocalDate date1, LocalDate date2) {
+		List<Equipo> equipos = equipoDaoImp.findByEstadioFechaFundacionBetween(date1, date2);
+		return equipos;
+	}
+
+	@Override
+	public List<Equipo> obtenerEquiposOrdenCapacidad() {
+		List<Equipo> equipos = equipoDaoImp.findAllByOrderByEstadioCapacidadAsc();
+		return equipos;
+	}
 
 
-
-
-
-
-
-
-
+	@Override
+	public Optional<Equipo> obtenerEquipoPorNombre(String nombreEquipo) {
+		Optional<Equipo> equipo = equipoDaoImp.findByNombre(nombreEquipo);
+		return equipo;
+	}
 
 	
 

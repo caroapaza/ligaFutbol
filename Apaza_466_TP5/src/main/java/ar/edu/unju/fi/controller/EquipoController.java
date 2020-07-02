@@ -34,6 +34,9 @@ public class EquipoController {
 		//List<Equipo> equipos = equipoService.obtenerEquipos();
 		//List<Equipo> equipos = equipoService.obtenerEquiposCiudad("Buenos Aires");
 		//List<Equipo> equipos = equipoService.obtenerEquiposCiudadCapacidad("Buenos Aires",50000);
+		//List<Equipo> equipos = equipoService.obtenerEquiposFechas(LocalDate.of(1910, 12, 01), LocalDate.of(1974, 12, 31));
+		//List<Equipo> equipos = equipoService.obtenerEquiposOrdenCapacidad();
+		
 		List<Equipo> equipos = equipoService.obtenerTodos();
 		model.addAttribute("equipos", equipos);
 		return "equipos-1";

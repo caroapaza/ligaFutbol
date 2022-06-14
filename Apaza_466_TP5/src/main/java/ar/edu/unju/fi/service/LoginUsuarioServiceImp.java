@@ -19,8 +19,8 @@ import ar.edu.unju.fi.repository.IUsuarioRepository;
 public class LoginUsuarioServiceImp implements UserDetailsService{
 
 	@Autowired
-	IUsuarioRepository iUsuario;
-	
+	private IUsuarioRepository iUsuario;
+
 	@Override
 	public UserDetails loadUserByUsername(String dni) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
